@@ -7,6 +7,10 @@ header {
     margin: 0 auto;
 }
 
+h1{
+    margin-left: 1rem;
+}
+
 /* step 1. style everything for the smallest screen first  */
 /* when styling the text, style the anchor tag to overwrite the browser styling. Layout styling goes on the li element  */
 
@@ -37,4 +41,85 @@ ul.submenu > li a {
 
 ul.submenu {
     padding: 0 1.25rem;
+}
+
+svg{
+    width: 1rem;
+    visibility: hidden;
+
+}
+
+@media screen and (min-width: 60rem){
+    ul.menu{
+        display: flex;
+    }
+
+    ul.menu li{
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto;
+        text-align: center;
+    }
+
+    /* 2. position style the drop down menu and then hide it  */
+
+    ul.submenu{
+        padding: 0;
+        /* when using position absolute the element is removed from the document layout - the space it took up is now gone.  */
+        position: absolute;
+        top: 56px;
+        /* left: 0; - this is default setting */
+        right: 0;
+        background-color: #191919;
+        border-radius: 0 0 5px 5px;
+        /* hide the submenu but make it accessable to screen readers and keyboards  */
+        visibility: hidden;
+        opacity: 0;
+
+        /* 4. Add transition state  */
+        /* when adding a transition state add it to the element that is changing before it changes  */
+        transition: all 0.5s ease;
+    }
+
+    /* when positioning an absolute item, make the parent element position relative to position in relation to that element and not the view port  */
+    ul.menu li{
+        position: relative;
+        white-space: nowrap;
+    }
+
+    /* 3. add hover state that shows the submenus  */
+    ul.menu li:hover > ul {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* 5. add accessibility with the :focus-within state on the li elements  */
+    ul.menu li:focus-within > ul, 
+    ul.menu li > ul:focus{
+        visibility: visible;
+        opacity: 1;
+        display: block;
+    }
+
+    ul.menu li a:hover{
+        color: orange;
+    }
+
+    svg{
+        visibility: visible;
+        margin-left: 5px;
+    }
+
+    svg path,
+    svg rect,
+    svg polygon{
+        fill: #f5f5f5;
+    }
+
+     a:hover svg path,
+     a:hover svg rect,
+     a:hover svg polygon{
+        fill: orange;
+    } 
+
 }
